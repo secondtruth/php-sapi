@@ -1,0 +1,20 @@
+language: php
+php:
+  - 7.4
+  - nightly
+
+jobs:
+  fast_finish: true
+  allow_failures:
+    - php: nightly
+
+install:
+  - composer install --prefer-dist --no-interaction
+
+before_script:
+  - echo 'xdebug.mode=coverage' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+script: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+  - vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
