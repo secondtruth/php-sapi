@@ -48,16 +48,16 @@ abstract class AbstractStream
         if (is_string($stream)) {
             $stream = $this->openStream($stream);
         } elseif (!is_resource($stream) || get_resource_type($stream) !== 'stream') {
-            throw new \InvalidArgumentException(sprintf('The stream must be a valid resource or a path string.'));
+            throw new \InvalidArgumentException('The stream must be a valid resource or a path string.');
         }
 
         $this->stream = $stream;
     }
 
     /**
-     * @param resource|string $stream
+     * @param string $stream
      *
-     * @return false|resource
+     * @return resource|false
      */
     abstract protected function openStream(string $stream);
 }
